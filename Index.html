@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PPS Book Supply & Distribution</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--tx:#131a2b;--mut:#6b7590;--line:#e4e8f1;--pri:#1f4fd8;--pri2:#5b8cff;--ok:#12a36a;--warn:#e08a00;--bad:#d64545;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1220;--card:#161d30;--tx:#eef1f9;--mut:#8f9ab5;--line:#252e47;--pri:#5b8cff;--pri2:#8db0ff}}
+:root[data-theme="dark"]{--bg:#0d1220;--card:#161d30;--tx:#eef1f9;--mut:#8f9ab5;--line:#252e47;--pri:#5b8cff;--pri2:#8db0ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:84px}
+main{max-width:640px;margin:0 auto;padding:14px}
+h1{font-size:19px;margin:4px 0 2px}h2{font-size:15px;margin:18px 0 8px}
+.sub{color:var(--mut);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px}
+.hero{background:linear-gradient(135deg,#17389c,#2b6cf0);color:#fff;border:0;display:flex;align-items:center;gap:14px}
+.hero .sub{color:#d5e0ff}
+.ring{position:relative;width:104px;height:104px;flex:none}
+.ring b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.kpi small{color:var(--mut);display:block;font-size:12px}.kpi b{font-size:22px}
+.bar{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pri),var(--pri2));border-radius:8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.item{cursor:pointer}
+.tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;white-space:nowrap}
+.t-done{background:#12a36a22;color:var(--ok)}.t-part{background:#1f4fd822;color:var(--pri)}.t-none{background:#d6454522;color:var(--bad)}.t-short{background:#e08a0022;color:var(--warn)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:99px;font-size:14px}
+.chip.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px;margin:4px 0 10px}
+label{font-size:12px;color:var(--mut);font-weight:600}
+.btn{width:100%;padding:14px;border-radius:12px;border:0;background:var(--pri);color:#fff;font-size:16px;font-weight:600}
+.btn.alt{background:var(--card);color:var(--tx);border:1px solid var(--line);margin-top:8px}
+.step{display:flex;gap:8px;margin:-2px 0 12px}.step button{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:15px}
+.seg{display:flex;background:var(--line);border-radius:12px;padding:3px;margin-bottom:12px}.seg button{flex:1;padding:9px;border:0;border-radius:10px;background:none;color:var(--mut);font-weight:600}.seg .on{background:var(--card);color:var(--tx)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;border:0;background:none;color:var(--mut);padding:6px 0;font-size:11px;font-weight:600}nav button span{display:block;font-size:20px}nav .on{color:var(--pri)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:#131a2b;color:#fff;padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;transition:.25s;pointer-events:none}.toast.show{opacity:1}
+.nums{display:flex;gap:12px;font-size:12px;color:var(--mut);margin-top:6px;flex-wrap:wrap}.nums b{color:var(--tx)}
+.warn{color:var(--warn);font-size:13px;margin:-4px 0 10px}
+
+body{font-size:18px;padding-bottom:110px}
+main{max-width:none;width:100%;padding:18px}
+h1{font-size:27px}h2{font-size:21px;margin:22px 0 10px}
+.sub{font-size:16px}
+.card{padding:18px;border-radius:18px}
+.hero div[style*="font-size:24px"]{font-size:32px!important}
+.ring{width:124px;height:124px}.ring svg{width:124px;height:124px}.ring b{font-size:27px}
+.kpi{padding:16px}.kpi small{font-size:16px}.kpi b{font-size:32px}
+.bar{height:11px}
+.tag{font-size:14px;padding:5px 11px}
+.chip{font-size:18px;padding:11px 18px}
+input,select{font-size:19px;padding:15px;border-radius:14px}
+label{font-size:16px}
+.btn{font-size:20px;padding:17px}
+.step button{font-size:19px;padding:13px}
+.seg button{font-size:17px;padding:12px}
+nav button{font-size:14px;padding:8px 0}nav button span{font-size:26px}
+.toast{font-size:18px;bottom:110px}
+.nums{font-size:16px;gap:14px}
+.warn{font-size:17px}
+@media(min-width:800px){main{padding:28px 6vw}.grid{grid-template-columns:repeat(4,1fr)}body{font-size:19px}}
+</style></head><body>
+<main id="app"></main>
+<nav id="nav"></nav><div class="toast" id="toast"></div>
+<script>
+const D=[["KG1","Golden English",50,50,50],["KG1","Golden Creative",50,50,50],["KG1","Phonics Workbook",50,50,50],["KG1","Phonics Writing",50,50,50],["KG1","Essential Maths",50,50,50],["KG1","Essential OWOP",50,50,50],["KG1","Peter & Jean 1A",50,50,50],["KG2","Golden English",40,40,40],["KG2","Golden Creative",40,40,40],["KG2","Phonics Workbook",40,40,40],["KG2","Phonics Writing",40,40,40],["KG2","Essential Maths",40,40,40],["KG2","Essential OWOP",40,40,40],["KG2","Peter & Jean 2A",40,40,40],["B1","Essential English",40,40,40],["B1","Kwadwoan Maths",40,40,40],["B1","Kwadwoan Science",40,40,40],["B1","Golden History",40,40,40],["B1","Excellence RME",40,40,40],["B1","ICT Solution Textbook",40,30,30],["B1","Ahyese Mfantse",40,40,40],["B1","Masterman Creative",40,40,40],["B1","Mighty French",40,40,40],["B1","Phonics Made Easy",40,40,40],["B1","Phonics Grammar",40,40,40],["B1","My Copy Bk",40,40,40],["B1","Peter & Jean 3A",40,40,0],["B2","Essential English",45,42,42],["B2","Kwadwoan Maths",45,45,45],["B2","Kwadwoan Science",45,45,45],["B2","Golden History",45,45,0],["B2","Excellence RME",45,45,45],["B2","ICT Solution Textbook",45,45,45],["B2","Ahyese Mfantse",45,45,45],["B2","Masterman Creative",45,45,45],["B2","Mighty French",45,45,45],["B2","Phonics Made Easy",45,45,45],["B2","Phonics Grammar",45,45,45],["B2","My Copy Bk",45,45,36],["B2","Peter & Jean 4A",45,45,0],["B3","Essential English",40,40,40],["B3","Kwadwoan Maths",40,40,40],["B3","Kwadwoan Science",40,40,40],["B3","Golden History",40,40,0],["B3","Excellence RME",40,40,40],["B3","ICT Solution Textbook",40,40,40],["B3","Ahyese Mfantse",40,40,40],["B3","Masterman Creative",40,40,40],["B3","Mighty French",40,40,40],["B3","Phonics Made Easy",40,40,40],["B3","Phonics Grammar",40,40,40],["B3","My Copy Bk",40,40,40],["B3","Peter & Jean 5A",40,40,0],["B4","Essential English",45,45,45],["B4","Kwadwoan Maths",45,45,45],["B4","Kwadwoan Science",45,45,45],["B4","Golden History",45,45,0],["B4","Excellence RME",45,45,45],["B4","ICT Solution Textbook",45,45,45],["B4","Ahyese Mfantse",45,45,45],["B4","Masterman Creative",45,45,45],["B4","Mighty French",45,45,45],["B4","Phonics Made Easy",45,45,45],["B4","Phonics Grammar",45,45,45],["B4","My Copy Bk",45,45,45],["B5","Essential English",50,50,50],["B5","Kwadwoan Maths",50,50,50],["B5","Kwadwoan Science",50,50,50],["B5","Golden History",50,50,0],["B5","Excellence RME",50,50,50],["B5","ICT Solution Textbook",50,50,50],["B5","Ahyese Mfantse",50,50,50],["B5","Masterman Creative",50,50,50],["B5","Mighty French",50,50,50],["B5","Phonics Made Easy",50,50,50],["B5","Phonics Grammar",50,50,50],["B5","My Copy Bk",50,50,50],["B6","Essential English",50,51,50],["B6","Kwadwoan Maths",50,50,50],["B6","Kwadwoan Science",50,50,50],["B6","Golden History",50,50,50],["B6","Excellence RME",50,50,50],["B6","ICT Solution Textbook",50,50,50],["B6","Ahyese Mfantse",50,50,50],["B6","Masterman Creative",50,50,50],["B6","Mighty French",50,50,50],["B6","Phonics Made Easy",50,50,50],["B6","Phonics Grammar",50,50,50],["B6","My Copy Bk",50,50,50],["B7","Essential English",40,9,9],["B7","Kwadwoan Maths",40,40,40],["B7","Kwadwoan Science",40,37,37],["B7","Excellence RME (Combined)",40,40,40],["B7","Masterman Creative",40,40,40],["B7","Tims Career Tech",40,40,40],["B7","Ahyese Mfantse",40,40,40],["B7","ICT Solution",40,40,40],["B7","Mighty French",40,40,40],["B7","Flamingo Social",40,40,0],["B7","Beacon of Light",40,40,40],["B7","Beacon Commentary",40,40,40],["B8","Essential English",40,19,19],["B8","Kwadwoan Maths",40,40,40],["B8","Kwadwoan Science",40,40,40],["B8","Masterman Creative",40,40,40],["B8","Tims Career Tech",40,40,0],["B8","Ahyese Mfantse",40,40,0],["B8","ICT Solution",40,40,40],["B8","Mighty French",40,40,40],["B8","Flamingo Social",40,40,0],["B9","Essential English",30,30,29],["B9","Kwadwoan Maths",30,30,29],["B9","Masterman Creative",30,30,29],["B9","Tims Career Tech",30,30,0],["B9","Ahyese Mfantse",30,30,0],["B9","ICT Solution",30,30,29],["B9","Mighty French",30,30,29],["B9","Flamingo Social",30,30,0]];
+const MODE='view';
+const KEY='pps_rows_1c17bc0e';
+let rows=null;try{rows=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+if(!Array.isArray(rows)||!rows.length)rows=D.map(r=>r.slice());
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(rows))}catch(e){}};
+let ADMIN=MODE=='admin';if(MODE=='auto')try{window.claude&&claude.use('user').then(u=>{ADMIN=!!(u&&u.isOwner());render()},()=>{})}catch(e){}
+let DL=null;try{window.claude&&claude.use('downloads').then(d=>{DL=d;if(S.tab=='home')render()},()=>{})}catch(e){}
+const S={tab:'home',cls:null,q:'',sel:null,mode:'upd',reset:false};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const stock=x=>Math.max(x[3]-x[4],0), short=x=>Math.max(x[2]-x[3],0);
+function agg(l){const t={e:0,r:0,d:0,s:0,sh:0};l.forEach(x=>{t.e+=x[2];t.r+=x[3];t.d+=x[4];t.s+=stock(x);t.sh+=short(x)});return t}
+const classes=()=>[...new Set(rows.map(r=>r[0]))];
+const books=()=>[...new Set(rows.map(r=>r[1]))].sort();
+function status(x){if(short(x)>0&&x[4]==0)return['t-none','Not given'];if(x[4]==0)return['t-none','Not given'];if(short(x)>0)return['t-short','Short '+short(x)];if(stock(x)==0)return['t-done','Complete'];return['t-part',stock(x)+' left']}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function ring(p){const c=2*Math.PI*44;return `<div class="ring"><svg viewBox="0 0 104 104" width="104" height="104"><circle cx="52" cy="52" r="44" fill="none" stroke="#ffffff33" stroke-width="10"/><circle cx="52" cy="52" r="44" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c*p/100} ${c}" transform="rotate(-90 52 52)"/></svg><b>${p}%</b></div>`}
+function bar(p){return `<div class="bar"><i style="width:${Math.min(p,100)}%"></i></div>`}
+function home(){const t=agg(rows);const notGiven=rows.filter(x=>x[4]==0).length;
+let h=`<h1>Book Supply & Distribution</h1><div class="sub">Textbook inventory summary${ADMIN?'':' · View only'}</div><div style="height:10px"></div>
+<div class="card hero">${ring(pct(t.d,t.r))}<div><div class="sub">Distributed of received</div><div style="font-size:24px;font-weight:700">${t.d.toLocaleString()} / ${t.r.toLocaleString()}</div><div class="sub">${t.s} books still in stock</div></div></div>
+<div class="grid"><div class="kpi"><small>Expected</small><b>${t.e.toLocaleString()}</b></div><div class="kpi"><small>Received (${pct(t.r,t.e)}%)</small><b>${t.r.toLocaleString()}</b></div><div class="kpi"><small>Shortfall</small><b style="color:var(--warn)">${t.sh}</b></div><div class="kpi"><small>Titles not yet given out</small><b style="color:var(--bad)">${notGiven}</b></div></div>
+<h2>By class</h2>`;
+classes().forEach(c=>{const a=agg(rows.filter(r=>r[0]==c));const p=pct(a.d,a.r);h+=`<div class="card item" data-c="${esc(c)}"><div class="row"><b>${esc(c)}</b><span class="sub">${a.d} of ${a.r} given · ${p}%</span></div>${bar(p)}<div class="nums"><span>Expected <b>${a.e}</b></span><span>Stock <b>${a.s}</b></span>${a.sh?`<span style="color:var(--warn)">Short <b style="color:var(--warn)">${a.sh}</b></span>`:''}</div></div>`});
+h+=`${DL?'<button class="btn" id="xl">Download Excel file</button>':''}<button class="btn alt" id="rep">Copy summary report</button>${ADMIN?`<button class="btn alt" id="rst">${S.reset?'Tap again to confirm reset':'Reset to original data (admin)'}</button>`:''}`;return h}
+function cls(){const cs=classes();if(!S.cls||!cs.includes(S.cls))S.cls=cs[0];
+let h=`<h1>Classes</h1><div class="chips">${cs.map(c=>`<button class="chip ${c==S.cls?'on':''}" data-k="${esc(c)}">${esc(c)}</button>`).join('')}</div>`;
+const l=rows.map((x,i)=>[x,i]).filter(z=>z[0][0]==S.cls);const a=agg(l.map(z=>z[0]));
+h+=`<div class="card"><div class="row"><b>${esc(S.cls)} total</b><span class="sub">${pct(a.d,a.r)}% distributed</span></div>${bar(pct(a.d,a.r))}<div class="nums"><span>Expected <b>${a.e}</b></span><span>Received <b>${a.r}</b></span><span>Given <b>${a.d}</b></span><span>Stock <b>${a.s}</b></span></div></div>`;
+l.forEach(([x,i])=>{const st=status(x);h+=`<div class="card ${ADMIN?'item':''}" ${ADMIN?'data-e="'+i+'"':''}><div class="row"><b>${esc(x[1])}</b><span class="tag ${st[0]}">${st[1]}</span></div>${bar(pct(x[4],x[3]))}<div class="nums"><span>Expected <b>${x[2]}</b></span><span>Received <b>${x[3]}</b></span><span>Given <b>${x[4]}</b></span></div></div>`});return h}
+function bks(){let h=`<h1>Books</h1><input id="q" placeholder="Search book title" value="${esc(S.q)}">`;
+books().filter(b=>b.toLowerCase().includes(S.q.toLowerCase())).forEach(b=>{const a=agg(rows.filter(r=>r[1]==b));const p=pct(a.d,a.r);h+=`<div class="card"><div class="row"><b>${esc(b)}</b><span class="sub">${p}%</span></div>${bar(p)}<div class="nums"><span>Expected <b>${a.e}</b></span><span>Received <b>${a.r}</b></span><span>Given <b>${a.d}</b></span><span>Stock <b>${a.s}</b></span>${a.sh?`<span style="color:var(--warn)">Short <b style="color:var(--warn)">${a.sh}</b></span>`:''}</span></div></div>`});return h}
+function upd(){const cs=classes();if(S.sel==null||!rows[S.sel])S.sel=0;const cur=rows[S.sel];
+let h=`<h1>Enter data</h1><div class="seg"><button data-m="upd" class="${S.mode=='upd'?'on':''}">Update record</button><button data-m="new" class="${S.mode=='new'?'on':''}">New item</button></div>`;
+if(S.mode=='upd'){const idx=rows.map((x,i)=>i).filter(i=>rows[i][0]==cur[0]);
+h+=`<label>Class</label><select id="uc">${cs.map(c=>`<option ${c==cur[0]?'selected':''}>${esc(c)}</option>`).join('')}</select><label>Book</label><select id="ub">${idx.map(i=>`<option value="${i}" ${i==S.sel?'selected':''}>${esc(rows[i][1])}</option>`).join('')}</select>
+<div class="card"><div class="nums" style="margin:0"><span>Expected <b>${cur[2]}</b></span><span>In stock <b id="sk">${stock(cur)}</b></span></div></div>
+<label>Received</label><input id="ur" type="number" inputmode="numeric" min="0" value="${cur[3]}"><label>Distributed to students</label><input id="ud" type="number" inputmode="numeric" min="0" value="${cur[4]}">
+<div class="step">${[-10,-1,1,10].map(n=>`<button data-s="${n}">${n>0?'+':''}${n}</button>`).join('')}</div><div class="warn" id="wn"></div><button class="btn" id="sv">Save</button>`}
+else h+=`<label>Class</label><input id="nc" list="cl" placeholder="e.g. B3"><datalist id="cl">${cs.map(c=>`<option value="${esc(c)}">`).join('')}</datalist><label>Book title</label><input id="nb" list="bl" placeholder="Book name"><datalist id="bl">${books().map(c=>`<option value="${esc(c)}">`).join('')}</datalist><label>Expected</label><input id="ne" type="number" inputmode="numeric" min="0"><label>Received</label><input id="nr" type="number" inputmode="numeric" min="0" value="0"><label>Distributed</label><input id="nd" type="number" inputmode="numeric" min="0" value="0"><button class="btn" id="ad">Add item</button>`;return h}
+function render(){if(!ADMIN&&S.tab=='upd')S.tab='home';$('#app').innerHTML={home,cls,bks,upd}[S.tab]();
+$('#nav').innerHTML=[['home','📊','Overview'],['cls','🏫','Classes'],['bks','📚','Books'],['upd','✏️','Enter']].filter(n=>ADMIN||n[0]!='upd').map(n=>`<button data-t="${n[0]}" class="${S.tab==n[0]?'on':''}"><span>${n[1]}</span>${n[2]}</button>`).join('');bind()}
+const go=(t)=>{S.tab=t;render();scrollTo(0,0)};
+function warn(){const r=+$('#ur').value||0,d=+$('#ud').value||0,w=$('#wn');w.textContent=d>r?'Distributed is more than received.':'';$('#sk').textContent=Math.max(r-d,0)}
+function bind(){
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>go(b.dataset.t));
+document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{S.cls=b.dataset.c;go('cls')});
+document.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{S.cls=b.dataset.k;render()});
+document.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{S.sel=+b.dataset.e;S.mode='upd';go('upd')});
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;render()});
+const q=$('#q');if(q)q.oninput=()=>{S.q=q.value;const p=q.selectionStart;render();const n=$('#q');n.focus();n.setSelectionRange(p,p)};
+if(S.tab=='home'){$('#rep').onclick=copyRep;const xb=$('#xl');if(xb)xb.onclick=exportX;const rb=$('#rst');if(rb)rb.onclick=()=>{if(!S.reset){S.reset=true;render();setTimeout(()=>{S.reset=false;if(S.tab=='home')render()},4000);return}rows=D.map(r=>r.slice());save();S.reset=false;render();toast('Data reset')}}
+if(S.tab=='upd'&&S.mode=='upd'){
+$('#uc').onchange=e=>{S.sel=rows.findIndex(r=>r[0]==e.target.value);render()};
+$('#ub').onchange=e=>{S.sel=+e.target.value;render()};
+$('#ur').oninput=warn;$('#ud').oninput=warn;warn();
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{const i=$('#ud');i.value=Math.max((+i.value||0)+ +b.dataset.s,0);warn()});
+$('#sv').onclick=()=>{const r=Math.max(+$('#ur').value||0,0),d=Math.max(+$('#ud').value||0,0);if(d>r){toast('Distributed cannot exceed received');return}rows[S.sel][3]=r;rows[S.sel][4]=d;save();toast('Saved');render()}}
+if(S.tab=='upd'&&S.mode=='new')$('#ad').onclick=()=>{const c=$('#nc').value.trim(),b=$('#nb').value.trim(),e=+$('#ne').value||0,r=+$('#nr').value||0,d=+$('#nd').value||0;
+if(!c||!b){toast('Enter class and book');return}if(d>r){toast('Distributed cannot exceed received');return}
+if(rows.some(x=>x[0]==c&&x[1]==b)){toast('That item already exists');return}
+rows.push([c,b,e,r,d]);save();S.sel=rows.length-1;S.mode='upd';toast('Item added');render()}}
+
+function grp(i){const m={};rows.forEach(r=>{(m[r[i]]=m[r[i]]||[]).push(r)});return Object.keys(m).map(k=>{const a=agg(m[k]);return[k,a.e,a.r,a.sh,a.d,a.s,{t:'n',v:a.r?a.d/a.r:0,z:'0%'},{t:'n',v:a.e?a.r/a.e:0,z:'0%'}]})}
+function mkWb(){const P=(v)=>({t:'n',v:v,z:'0%'});
+const H=['Class','Book','Expected','Received','Distributed','Stock Remaining','Distribution %','Receipt %','Shortfall'];
+const inv=[H];rows.forEach((x,i)=>{const n=i+2;inv.push([x[0],x[1],x[2],x[3],x[4],{t:'n',v:stock(x),f:`MAX(D${n}-E${n},0)`},{t:'n',v:x[3]?x[4]/x[3]:0,f:`IF(D${n}=0,0,E${n}/D${n})`,z:'0%'},{t:'n',v:x[2]?x[3]/x[2]:0,f:`IF(C${n}=0,0,D${n}/C${n})`,z:'0%'},{t:'n',v:short(x),f:`MAX(C${n}-D${n},0)`}])});
+const t=agg(rows);const G=['Name','Expected','Received','Shortfall','Distributed','Stock Remaining','Distribution %','Receipt %'];
+const sum=[['BOOK SUPPLY & DISTRIBUTION SUMMARY'],[],['Total Expected','Total Received','Total Distributed','Stock Remaining','Distribution %'],[t.e,t.r,t.d,t.s,P(t.r?t.d/t.r:0)],[],['Class'].conca
